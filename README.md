@@ -8,13 +8,13 @@ Usage
 
 install
 
-```
+```sh
 npm install
 ```
 
 start
 
-```
+```sh
 npm start
 ```
 
