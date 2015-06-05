@@ -26,6 +26,9 @@
     "serve-favicon": "~2.2.1"
   },
   "devDependencies": {
-    "express-generator": "^4.12.4"
+    "express-generator": "^4.12.4",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-coffeeify": "^0.1.8"
   }
 }
