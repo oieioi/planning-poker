@@ -25,4 +25,6 @@ gulp.task 'browserify', watchify (watchify) ->
     .pipe gulp.dest './public/javascript'
 
 gulp.task 'watchify', ['enable-watch-mode', 'browserify']
-gulp.task 'watch', ['build', 'watchify']
+gulp.task 'watch', ['build', 'watchify'], ->
+  gulp.watch './client/src/**/*.coffee', ['build:coffee']
+
