@@ -1,13 +1,28 @@
-gulp = required 'gulp'
-browserify = required 'gulp-browserify'
-coffeeify = required 'gulp-coffeeify'
+gulp     = require 'gulp'
+coffee   = require 'gulp-coffee'
+watchify = require 'gulp-watchify'
+rename   = require 'gulp-rename'
+
+gulp.task 'default', ['build', 'browserify']
+
+gulp.task 'build', [
+  'build:coffee'
+]
 
 gulp.task 'build:coffee', ->
-  gulp.src 'srs/**/*.coffee'
-    .pipe coffeeify()
-    .pipe gulp.dest './build/js'
+  gulp.src './client/src/**/*.coffee'
+    .pipe coffee()
+    .pipe gulp.dest './build/javascript'
 
-gulp.task 'build:web', ->
-  gulp.src './build/app.js'
-    .pipe browserify()
-    .pipe gulp.dest './public/'
+watching = false
+gulp.task 'enable-watch-mode', -> watching = true
+
+gulp.task 'browserify', watchify (watchify) ->
+  gulp.src './build/javascript/components/app.js'
+    .pipe watchify
+      watch: watching
+    .pipe rename 'application.js'
+    .pipe gulp.dest './public/javascript'
+
+gulp.task 'watchify', ['enable-watch-mode', 'browserify']
+gulp.task 'watch', ['build', 'watchify']
