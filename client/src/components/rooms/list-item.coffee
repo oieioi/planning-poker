@@ -13,7 +13,10 @@ module.exports = React.createClass
     jade.compile("""
       li
         Link(to='room-detail', params={roomId: props.id})
-          .js-id= props.id
-          .js-name= props.name
-          .js-administrator= props.administrator
+          div id:
+            span.js-id= props.id
+          div name:
+            span.js-name= props.name
+          div administrator:
+            span.js-administrator= props.administrator
     """)(_.extend {}, @, @props, @states)
