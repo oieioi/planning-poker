@@ -53,4 +53,15 @@ node_modules
 # Users Environment Variables
 .lock-wscript
 
+build/
+public/javascript/
+### https://raw.github.com/github/gitignore/097db81c08b138dea7cb031eb18eeb16afe44bdf/Global/vim.gitignore
+
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
 
