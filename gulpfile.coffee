@@ -21,6 +21,9 @@ gulp.task 'browserify', watchify (watchify) ->
   gulp.src './build/javascript/components/app.js'
     .pipe watchify
       watch: watching
+      transform: [
+        'react-jade'
+      ]
     .pipe rename 'application.js'
     .pipe gulp.dest './public/javascript'
 
