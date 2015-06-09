@@ -28,8 +28,8 @@ App = React.createClass
 module.exports =
   jade.compile("""
     Route(handler=App, path='/')
-      Route(name='rooms', path ='rooms', handler=Room)
-        Route(name='room-detail', path =':roomId', handler=RoomDetail)
-          Route(name='plans', path ='plans', handler=Hoge)
-            Route(name='plan-detail', path =':planId', handler=Hoge)
+      Route(name='rooms',       path='rooms',                       handler=Rooms)
+      Route(name='room-detail', path='rooms/:roomId',               handler=RoomDetail)
+      Route(name='plans',       path='rooms/:roomId/plans',         handler=Hoge)
+      Route(name='plan-detail', path='rooms/:roomId/plans/:planId', handler=Hoge)
       """)()
