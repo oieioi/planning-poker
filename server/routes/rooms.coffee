@@ -16,6 +16,6 @@ router.get '/:roomId', (req, res, next) ->
     id: roomId
     name: "#{roomId}'s room <3"
     administrator: "admin #{roomId}"
-    other: 'hoge'
+    comment: 'hoge'
 
 module.exports = router
