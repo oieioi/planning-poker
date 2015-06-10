@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postintall": "$(npm bin)/gulp",
-    "watch": "$(npm bin)/gulp watch"
+    "watch": "$(npm bin)/gulp watch",
+    "start": "$(npm bin)/coffee server/app.coffee"
   },
   "repository": {
     "type": "git",
