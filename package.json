@@ -29,6 +29,7 @@
     "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "morgan": "~1.5.3",
+    "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "react-jade": "^2.4.0",
     "react-router": "^0.13.3",
