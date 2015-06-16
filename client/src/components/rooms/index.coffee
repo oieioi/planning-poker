@@ -1,7 +1,8 @@
 React = require 'react'
 jade  = require 'react-jade'
-superagent = require 'superagent'
-ListItem = require './list-item'
+ListItem    = require './list-item'
+RoomStore   = require '../../stores/room-store'
+getAllRooms = require '../../actions/get-all-rooms'
 
 template = jade.compile("""
   ul
@@ -13,21 +14,23 @@ itemTemplate = jade.compile("""
     ListItem(id=item.id, name=item.name, administrator=item.administrator)
 """)
 
+getStateFromStore = ->
+  list: RoomStore.getAll()
+
 module.exports = React.createClass
   getInitialState: ->
     list: [
     ]
 
   componentDidMount: ->
-    superagent
-      .get '/api/rooms'
-      .end (err, res)=>
-        list = try
-          JSON.parse res.text
-        catch e
-          []
-        @setState list: list
+    RoomStore.addChangeListener @_onChange
+    getAllRooms()
 
+  componentWillUnmount: ->
+    RoomStore.removeChangeListener @_onChange
+
+  _onChange: ->
+    @setState getStateFromStore()
 
   render: ->
     items = this.state.list.map (item, i) ->

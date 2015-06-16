@@ -54,3 +54,19 @@ Back end routings (RESTful, but implement with websocket...)
 - GET  /rooms/{roomId}/plans/{planId}/result
 - POST /rooms/{roomId}/plans/{planId}/result
    - close planning
+
+
+
+flux
+----
+
+```
+[ Action ] -> [ Dispatcher ] -> [ Store ] -> [ View ]
+     ^                                           |
+     |                                           |
+      <------------------------------------------
+```
+
+
+
+
