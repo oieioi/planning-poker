@@ -26,7 +26,6 @@
     "express": "^4.12.4",
     "flux": "^2.0.3",
     "jade": "~1.9.2",
-    "jquery": "^2.1.4",
     "lodash": "^3.9.3",
     "morgan": "~1.5.3",
     "object-assign": "^3.0.0",

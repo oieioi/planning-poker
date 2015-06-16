@@ -1,7 +1,7 @@
 planning-poker
 ==============
 
-Planning poker with web-socket.
+Planning poker(wip).
 
 Usage
 ------
@@ -35,4 +35,3 @@ users
 2. Wait for start planning
 3. Input a value
 4. Show planning value
-
