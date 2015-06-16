@@ -13,13 +13,8 @@ RoomStore = assign {}, EventEmitter.prototype,
   get: (id) -> _rooms[id]
 
   getCurrent: ->
-    console.log 1
     if not _rooms[_currentId]?
       _rooms[_currentId] = {}
-
-    console.log _rooms
-    console.log _currentId
-
     _rooms[_currentId]
 
 
@@ -58,8 +53,5 @@ RoomStore.dispatchToken = Dispatcher.register (action) ->
 
     else
       console.error "定義されていないイベント #{action.type}"
-
-
-console.log RoomStore
 
 module.exports = RoomStore

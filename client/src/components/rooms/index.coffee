@@ -24,6 +24,7 @@ module.exports = React.createClass
 
   componentDidMount: ->
     RoomStore.addChangeListener @_onChange
+    # TODO here?
     getAllRooms()
 
   componentWillUnmount: ->

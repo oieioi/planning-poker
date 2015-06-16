@@ -7,6 +7,7 @@ module.exports = (roomId) ->
     type: ActionTypes.CLICK_ROOM
     roomId: roomId
 
+  # TODO move to `utils`?
   superagent
     .get '/api/rooms/' + roomId
     .end (err, res)->
@@ -21,4 +22,3 @@ module.exports = (roomId) ->
         type: ActionTypes.RECEIVE_ROOM_SUCCESS
         roomId: roomId
         room: JSON.parse res.text
-
