@@ -1,9 +1,8 @@
 React = require 'react'
 jade  = require 'react-jade'
-ListItem = require './list-item'
-RoomStore = require '../../stores/room-store'
+ListItem    = require './list-item'
+RoomStore   = require '../../stores/room-store'
 getAllRooms = require '../../actions/get-all-rooms'
-console.log RoomStore
 
 template = jade.compile("""
   ul

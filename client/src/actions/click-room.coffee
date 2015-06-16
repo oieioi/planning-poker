@@ -1,18 +1,24 @@
-RoomStore     = require '../stores/room-store'
+Dispatcher    = require '../dispatcher/app-dispatcher'
 {ActionTypes} = require '../constants/room-constants'
+superagent    = require 'superagent'
 
-module.exports = (context, payload, done) ->
-  roomStore = context.getStore RoomStore
-  roomId = payload.roomId
-  context.dispatch 'CLICK_ROOM_START', roomId
-  superagent.get '/api/rooms/' + roomId
+module.exports = (roomId) ->
+  Dispatcher.dispatch
+    type: ActionTypes.CLICK_ROOM
+    roomId: roomId
+
+  superagent
+    .get '/api/rooms/' + roomId
     .end (err, res)->
 
       if err
-        context.dispatch 'CLICK_ROOM_FAILURE', roomId
-        done()
+        Dispatcher.dispatch
+          type: ActionTypes.RECEIVE_ROOM_FAILURE
+          roomId: roomId
         return
 
-      context.dispatch 'CLICK_ROOM_SUCCESS', roomId
-      done()
+      Dispatcher.dispatch
+        type: ActionTypes.RECEIVE_ROOM_SUCCESS
+        roomId: roomId
+        room: JSON.parse res.text
 

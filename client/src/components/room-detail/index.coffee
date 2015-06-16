@@ -2,7 +2,10 @@ _      = require 'lodash'
 React  = require 'react'
 jade   = require 'react-jade'
 {Link} = require 'react-router'
-superagent = require 'superagent'
+RoomStore = require '../../stores/room-store'
+
+# TODO ルーティングのアクションについては再考
+clickRoom = require '../../actions/click-room'
 
 template = jade.compile '''
 .js-room-detail
@@ -20,6 +23,17 @@ template = jade.compile '''
     Link(to="plans", params={roomId: props.params.roomId}) see Plans
 
 '''
+
+getStateFromStore = ->
+  current = RoomStore.getCurrent()
+  console.log current
+  s = 
+    id            : current.id
+    name          : current.name
+    administrator : current.administrator
+    comment       : current.comment
+  s
+
 module.exports = React.createClass
 
   getInitialState: ->
@@ -29,11 +43,15 @@ module.exports = React.createClass
     comment: null
 
   componentDidMount: ->
-    superagent
-      .get '/api/rooms/' + @props.params.roomId
-      .end (err, res)=>
-        @setState JSON.parse res.text
+    RoomStore.addChangeListener @_onChange
+    clickRoom @props.params.roomId
+
+  componentWillUnmount: ->
+    RoomStore.removeChangeListener @_onChange
+
+  _onChange: ->
+    @setState getStateFromStore()
 
   render: ->
     template _.extend {}, @
-    
+

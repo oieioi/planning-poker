@@ -12,11 +12,22 @@ RoomStore = assign {}, EventEmitter.prototype,
 
   get: (id) -> _rooms[id]
 
-  getCurrent: -> _rooms[_currentId]
+  getCurrent: ->
+    console.log 1
+    if not _rooms[_currentId]?
+      _rooms[_currentId] = {}
+
+    console.log _rooms
+    console.log _currentId
+
+    _rooms[_currentId]
+
 
   emitChange: -> @emit 'change'
 
   addChangeListener: (cb)-> @on 'change', cb
+
+  removeChangeListener: (cb)-> @removeListener 'change', cb
 
 
 RoomStore.dispatchToken = Dispatcher.register (action) ->
@@ -35,6 +46,14 @@ RoomStore.dispatchToken = Dispatcher.register (action) ->
 
     when ActionTypes.CLICK_ROOM
       _currentId = action.roomId
+      RoomStore.emitChange()
+
+    when ActionTypes.RECEIVE_ROOM_FAILURE
+      console.log '失敗'
+
+    when ActionTypes.RECEIVE_ROOM_SUCCESS
+      _currentId = action.roomId
+      _rooms[_currentId] = action.room
       RoomStore.emitChange()
 
     else
