@@ -8,7 +8,7 @@ db.serialize ->
   )'
   db.run 'CREATE TABLE plan (
     name TEXT
-    , planid interger
+    , roomid interger
     , state TEXT
     , max interger
     , min interger

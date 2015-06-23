@@ -1,7 +1,7 @@
 express = require 'express'
-_ = require 'lodash'
-router = express.Router()
-db = require '../db'
+_       = require 'lodash'
+router  = express.Router()
+db      = require '../db'
 
 
 router.get '/', (req, res, next) ->
@@ -16,7 +16,7 @@ router.post '/', (req, res, next) ->
       res.sendStatus 500
       return
 
-    res.send 
+    res.send
       id: @lastID
       name: name
       administrator: 'test'
@@ -33,12 +33,14 @@ router.get '/:roomId', (req, res, next) ->
 
 router.get '/:roomId/plans', (req, res, next) ->
   roomId = req.params.roomId
-  db.all "select *, rowid as id from plan where planid = ?", [roomId], (err, rows)->
+  db.all "select *, rowid as id from plan where roomid = ?", [roomId], (err, rows)->
+
     if err
       console.log err
       res.sendStatus 500
       return
-    if not rows?
+
+    if rows.length is 0
       res.sendStatus 404
       return
 
@@ -47,17 +49,27 @@ router.get '/:roomId/plans', (req, res, next) ->
 router.get '/:roomId/plans/:planId', (req, res, next) ->
   roomId = req.params.roomId
   planId = req.params.planId
-  res.send
-    id: planId
-    name: "plan-#{planId}",
-    max: 10,
-    min: 1,
-    state: 'open',
-    roomId: roomId
+  db.get 'select *, rowid as id from plan where roomid = ? and id = ?', [roomId, planId], (err, row)->
+
+    if not row?
+      res.sendStatus 404
+      return
+
+    res.send row
 
 router.post '/:roomId/plans', (req, res, next) ->
   roomId = req.params.roomId
-  res.send {id: _.random(1000), roomId: roomId}
+  {name, max, min} = req.body
+  db.run 'insert into plan values (?, ?, ?, ?, ?)', [name, roomId, 'open', max, min], (err)->
+
+    if err
+      res.sendStatus 500
+      return
+
+    res.send
+      id: @lastID
+      roomId: roomId
+      state: 'open'
 
 router.put '/:roomId/plans/:planId/cards', (req, res, next) ->
   res.send []
