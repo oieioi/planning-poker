@@ -11,6 +11,13 @@ router.get '/', (req, res, next) ->
     {id: 4, name: 'name4', administrator: 'a4'}
     {id: 5, name: 'name5', administrator: 'a5'}
   ]
+router.post '/', (req, res, next) ->
+  name = req.body.name
+  res.send {
+    id: _.random(1000) + 100
+    name: name
+    administrator: 'test'
+  }
 
 router.get '/:roomId', (req, res, next) ->
   roomId = req.params.roomId

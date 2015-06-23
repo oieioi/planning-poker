@@ -18,6 +18,22 @@ module.exports =
           type: ActionTypes.RECEIVE_ALL_ROOMS_SUCCESS
           rooms: JSON.parse res.text
 
+  createRoom: (name)->
+    superagent
+      .post '/api/rooms'
+      .send name: name
+      .end (err, res)->
+
+        if err
+          Dispatcher.dispatch
+            type: ActionTypes.CREATE_ROOM_FAILURE
+          return
+
+        Dispatcher.dispatch
+          type: ActionTypes.CREATE_ROOM_SUCCESS
+          room: JSON.parse res.text
+
+
   getRoom: (roomId)->
     superagent
       .get "/api/rooms/#{roomId}"

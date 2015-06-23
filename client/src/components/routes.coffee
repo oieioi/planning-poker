@@ -12,16 +12,9 @@ Hoge                        = require './hoge'
 App = React.createClass
   render: ->
     jade.compile("""
-      div hogehoge
-        ul
-          li
-            Link(to='rooms') rooms
-          li
-            Link(to='room-detail', params={roomId: 1}) rooms/1
-          li
-            Link(to='plans',params={roomId: 1}) plans
-          li
-            Link(to='plan-detail',params={roomId: 1, planId: 2}) plans/2
+      div
+        h1
+          Link(to='rooms') Planning Porker
         div
           RouteHandler
     """)()

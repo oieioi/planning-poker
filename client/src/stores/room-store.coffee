@@ -51,7 +51,15 @@ RoomStore.dispatchToken = Dispatcher.register (action) ->
       _rooms[_currentId] = action.room
       RoomStore.emitChange()
 
+    when ActionTypes.CREATE_ROOM_FAILURE
+      console.log '失敗', action
+
+    when ActionTypes.CREATE_ROOM_SUCCESS
+      console.log '成功', action
+      _rooms.push action.room
+      RoomStore.emitChange()
+
     else
-      console.error "定義されていないイベント #{action.type}"
+      console.warn "定義されていないイベント", action
 
 module.exports = RoomStore

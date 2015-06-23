@@ -1,12 +1,25 @@
+_     = require 'lodash'
 React = require 'react'
 jade  = require 'react-jade'
 ListItem    = require './list-item'
 RoomStore   = require '../../stores/room-store'
 getAllRooms = require '../../actions/get-all-rooms'
+createRoom  = require '../../actions/create-room'
 
 template = jade.compile("""
-  ul
-    = items
+  div#rooms-component
+    h2 rooms
+    div
+      label
+        | name:
+        input(type='text'
+              placeholder='room name'
+              value=state.newRoomName
+              onChange=changeRoomName)
+      button.js-btn-create(onClick=createRoom)
+        | create room dayo
+    ul
+      = items
 """)
 
 itemTemplate = jade.compile("""
@@ -15,12 +28,13 @@ itemTemplate = jade.compile("""
 """)
 
 getStateFromStore = ->
+  newRoomName: ''
   list: RoomStore.getAll()
 
 module.exports = React.createClass
   getInitialState: ->
-    list: [
-    ]
+    newRoomName: ''
+    list: []
 
   componentDidMount: ->
     RoomStore.addChangeListener @_onChange
@@ -33,8 +47,17 @@ module.exports = React.createClass
   _onChange: ->
     @setState getStateFromStore()
 
-  render: ->
-    items = this.state.list.map (item, i) ->
-      itemTemplate ListItem: ListItem, item: item
+  createRoom: ->
+    createRoom(@state.newRoomName)
 
-    template items: items
+  changeRoomName: (e)->
+    @setState newRoomName: e.target.value
+
+  render: ->
+    items = @state.list.map (item, i) ->
+      itemTemplate ListItem: ListItem, item: item
+    template
+      items: items
+      createRoom: @createRoom
+      changeRoomName: @changeRoomName
+      state: @state
