@@ -33,6 +33,7 @@
     "react-jade": "^2.4.0",
     "react-router": "^0.13.3",
     "serve-favicon": "~2.2.1",
+    "sqlite3": "^3.0.8",
     "superagent": "^1.2.0"
   },
   "devDependencies": {
