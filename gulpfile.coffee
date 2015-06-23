@@ -25,7 +25,7 @@ gulp.task 'browserify', watchify (watchify) ->
         'react-jade'
       ]
     .pipe rename 'application.js'
-    .pipe gulp.dest './public/javascript'
+    .pipe gulp.dest './server/public/javascript'
 
 gulp.task 'watchify', ['enable-watch-mode', 'browserify']
 gulp.task 'watch', ['build', 'watchify'], ->
