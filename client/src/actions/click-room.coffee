@@ -9,3 +9,4 @@ module.exports = (roomId) ->
     roomId: roomId
 
   WebApiUtil.getRoom roomId
+  WebApiUtil.getAllPlans roomId

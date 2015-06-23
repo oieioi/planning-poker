@@ -26,8 +26,7 @@ template = jade.compile '''
 
 getStateFromStore = ->
   current = RoomStore.getCurrent()
-  console.log current
-  s = 
+  s =
     id            : current.id
     name          : current.name
     administrator : current.administrator
