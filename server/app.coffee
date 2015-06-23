@@ -4,8 +4,6 @@ logger       = require 'morgan'
 bodyParser   = require 'body-parser'
 cookieParser = require 'cookie-parser'
 
-routes = require './routes/index'
-users  = require './routes/users'
 rooms  = require './routes/rooms'
 
 app = do express
@@ -16,7 +14,6 @@ app.use do bodyParser.json
 app.use bodyParser.urlencoded {extended : false}
 app.use do cookieParser
 
-app.use '/api/users', users
 app.use '/api/rooms', rooms
 
 app.use express.static path.join __dirname, 'public'
